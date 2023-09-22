@@ -1,0 +1,11 @@
+{
+  "version": "2",
+  "remote": {
+    "https://deno.land/std@0.202.0/fs/exists.ts": "cb59a853d84871d87acab0e7936a4dac11282957f8e195102c5a7acb42546bb8",
+    "https://esm.sh/minimist@1.2.8": "e2b1772d81afcee37ad19ada641052cff340988d9f54ebc1b9f8c29c043e1893",
+    "https://esm.sh/pino@8.15.1": "00ecae71cf774873b2765c80c7b919a18783406def6496f4ce191afbf59a907c",
+    "https://esm.sh/v132/minimist@1.2.8/denonext/minimist.mjs": "50d18960060e8fbca3f7edbf9425d30085c5e9696a47359707908124ba6275b8",
+    "https://esm.sh/v132/pino@8.15.1/denonext/pino.mjs": "4ec3c824785c62134aa4ca68769f77eaa40e893e6fc24810b173be0e72e04a19",
+    "https://esm.sh/v132/quick-format-unescaped@4.0.4/denonext/quick-format-unescaped.mjs": "8d809d8d3f13d10e7f9e5f119af5d73ebb533999cb8f35f88aa4f4dc9fba2662"
+  }
+}

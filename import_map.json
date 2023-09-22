@@ -1,0 +1,8 @@
+{
+  "imports": {
+    "$std/": "https://deno.land/std@0.202.0/",
+
+    "minimist": "https://esm.sh/minimist@1.2.8",
+    "pino": "https://esm.sh/pino@8.15.1"
+  }
+}
