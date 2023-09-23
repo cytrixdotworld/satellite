@@ -1,8 +1,34 @@
-import logger from "pino";
+import colors from "ansi-colors";
 
-const _logger = logger({});
+const dateTimeFormat = new Intl.DateTimeFormat("en", {
+  timeStyle: "medium",
+  dateStyle: "short",
+  hour12: false,
+});
+
+const logger = (name: string) => ({
+  info: (msg: string) =>
+    console.log(
+      `${colors.gray(dateTimeFormat.format(Date.now()))} ${name} [ ${
+        colors.green("OK")
+      } ]    ${msg}`,
+    ),
+  warn: (msg: string) =>
+    console.warn(
+      `${colors.gray(dateTimeFormat.format(Date.now()))} ${name} [ ${
+        colors.yellow("WARN")
+      } ]  ${msg}`,
+    ),
+  error: (msg: string) =>
+    console.error(
+      `${colors.gray(dateTimeFormat.format(Date.now()))} ${name} [ ${
+        colors.red("FAIL")
+      } ]  ${msg}`,
+    ),
+});
 
 export default {
-  main: _logger.child({ module: "main" }),
-  routes: _logger.child({ module: "routes" }),
+  main: logger("main"),
+  routes: logger("routes"),
+  serve: logger("serve"),
 };

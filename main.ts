@@ -9,6 +9,6 @@ const env = {
 
 switch (args._[0]) {
   case "serve": {
-    serve({ prod: env.prod });
+    await serve({ prod: env.prod });
   }
 }
