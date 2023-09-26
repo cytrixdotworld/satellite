@@ -9,7 +9,11 @@ interface ServeOptions {
 export default async function serve(opts: ServeOptions) {
   const loaded = await routes(opts.prod);
 
-  Deno.serve((req) => {
+  Deno.serve({
+    onListen() {
+      logger.serve.info("Listening on http://localhost:8000");
+    },
+  }, (req) => {
     const path = new URL(req.url).pathname;
     const route = loaded.find((route) => route.path === path.slice(1));
 

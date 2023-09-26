@@ -28,7 +28,7 @@ const logger = (name: string) => ({
 });
 
 export default {
-  main: logger("main"),
+  main: logger("main "),
   routes: logger("routes"),
-  serve: logger("serve"),
+  serve: logger("serve "),
 };
