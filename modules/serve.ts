@@ -1,5 +1,6 @@
 import logger from "../utils/logger.ts";
 import routes from "../utils/routes.ts";
+import { Route } from "../types/route.ts";
 
 interface ServeOptions {
   prod: boolean;
@@ -17,6 +18,6 @@ export default async function serve(opts: ServeOptions) {
       return new Response("Not Found", { status: 404 });
     }
 
-    return route.module.GET(req);
+    return route.module[req.method as keyof Route]!(req);
   });
 }
