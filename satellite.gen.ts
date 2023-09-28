@@ -2,5 +2,5 @@
 // please do not edit
 
 export default {
-"routes/index.ts": await import("./routes/index.ts"),
+  "routes/index.ts": (await import("./routes/index.ts")).default,
 };

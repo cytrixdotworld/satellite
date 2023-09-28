@@ -2,24 +2,33 @@ import { existsSync } from "$std/fs/exists.ts";
 import { Route } from "../types/route.ts";
 import logger from "./logger.ts";
 
-let routeList: { path: string; module: Route }[] = [];
+let routeList: Record<string, Route> = {};
 
 export default async function routes(prod?: boolean) {
   if (prod) {
     if (!existsSync("routes.json")) {
       throw Error("routes.json does not exist");
     }
-    logger.routes.info("loading routes from routes.json");
-    routeList = JSON.parse(Deno.readTextFileSync("routes.json"));
+    await loadRoutesProd();
     return routeList;
   }
-  logger.routes.info("loading routes from routes directory");
   await loadRoutes();
   await save();
   return routeList;
 }
 
+async function loadRoutesProd() {
+  logger.routes.info("loading routes from satellite.gen.ts");
+  const satelliteTs = (await import("../satellite.gen.ts")).default as Record<
+    string,
+    Route
+  >;
+  routeList = satelliteTs;
+  logger.routes.info(`loaded ${Object.keys(satelliteTs).length} routes`);
+}
+
 async function loadRoutes(routesDir = "routes") {
+  logger.routes.info("loading routes from routes directory");
   await Promise.all([...Deno.readDirSync(routesDir)].map(async (route) => {
     if (route.isDirectory) {
       await loadRoutes(`${routesDir}/${route.name}`);
@@ -37,9 +46,9 @@ async function save() {
     "",
     "export default {",
   ];
-  routeList.forEach((route) => {
+  Object.entries(routeList).forEach((route) => {
     tsFile.push(
-      `"${route.path}": await import("./${route.path}"),`,
+      `  "${route[0]}": (await import("./${route[0]}")).default,`,
     );
   });
   tsFile.push("};");
@@ -59,9 +68,6 @@ async function add(path: string) {
     logger.routes.error(`failed to load route ${path}: ${e}`);
     return;
   }
-  routeList.push({
-    path,
-    module,
-  });
+  routeList[path] = module;
   logger.routes.info(`loaded route ${path}`);
 }
