@@ -13,15 +13,18 @@ export default async function serve(opts: ServeOptions) {
     onListen() {
       logger.serve.info("Listening on http://localhost:8000");
     },
-  }, (req) => {
+  }, async (req) => {
     const path = new URL(req.url).pathname;
-    const route = loaded.find((route) => route.path === path.slice(1));
+    const route = loaded[path.slice(1)];
 
     if (!route) {
       logger.serve.warn(`no route found for ${req.url}`);
       return new Response("Not Found", { status: 404 });
     }
 
-    return route.module[req.method as keyof Route]!(req);
+    const handler = route[req.method as keyof Route];
+    return handler
+      ? await handler(req)
+      : new Response("Method Not Allowed", { status: 405 });
   });
 }

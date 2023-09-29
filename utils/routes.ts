@@ -30,6 +30,7 @@ async function loadRoutesProd() {
 async function loadRoutes(routesDir = "routes") {
   logger.routes.info("loading routes from routes directory");
   await Promise.all([...Deno.readDirSync(routesDir)].map(async (route) => {
+    if (route.name[0] === "_") return;
     if (route.isDirectory) {
       await loadRoutes(`${routesDir}/${route.name}`);
     } else {

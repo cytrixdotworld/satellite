@@ -1,4 +1,4 @@
-type ReqToRes = (req: Request) => Response;
+type ReqToRes = (req: Request) => Response | Promise<Response>;
 
 type Route = {
   GET?: ReqToRes;

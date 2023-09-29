@@ -1,8 +1,11 @@
 import { Route } from "../types/route.ts";
 
 export default {
-  GET(req) {
+  async GET(req) {
     console.log(req);
-    return new Response("Hello World!");
+    const res = await (async () => {
+      return new Response("Hello World!");
+    })();
+    return res;
   },
 } satisfies Route;
