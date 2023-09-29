@@ -31,4 +31,5 @@ export default {
   main: logger("main "),
   routes: logger("routes"),
   serve: logger("serve "),
+  build: logger("build "),
 };

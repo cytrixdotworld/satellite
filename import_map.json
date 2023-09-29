@@ -3,7 +3,9 @@
     "$std/": "https://deno.land/std@0.202.0/",
 
     "minimist": "https://esm.sh/minimist@1.2.8",
+    "meow": "https://esm.sh/meow",
     "ansi-colors": "https://esm.sh/ansi-colors@4.1.3",
-    "uid": "https://esm.sh/uid@2.0.2"
+
+    "esbuild": "https://deno.land/x/esbuild@v0.19.4/mod.d.ts"
   }
 }
